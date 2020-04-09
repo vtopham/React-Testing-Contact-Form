@@ -46,10 +46,12 @@ test ("fields can take input", () => {
     const messageInput = getByTestId("message")
 
     //act - type in something into each field
+    
     fireEvent.change(firstNameInput, {target: {value: "FirstName"}})
     fireEvent.change(lastNameInput, {target: {value: "LastName"}})
     fireEvent.change(emailInput, {target: {value: "Email"}})
     fireEvent.change(messageInput, {target: {value: "Message"}})
+    
 
     //assert
     expect(firstNameInput).toHaveValue("FirstName")
@@ -59,8 +61,34 @@ test ("fields can take input", () => {
 
 })
 
+test ("data returned works", async () => {
+    //arrange
+    const {getByTestId, findByTestId} = render(<ContactForm/>)
+    const firstNameInput = getByTestId("first-name")
+    const lastNameInput = getByTestId("last-name")
+    const emailInput = getByTestId("email")
+    const messageInput = getByTestId("message")
+
+
+    //act
+    act(() => {
+
+    fireEvent.change(firstNameInput, {target: {value: "abc"}})
+    fireEvent.change(lastNameInput, {target: {value: "LastName"}})
+    fireEvent.change(emailInput, {target: {value: "victoria@gmail.com"}})
+    fireEvent.change(messageInput, {target: {value: "abc"}})
+
+    fireEvent.click(getByTestId('submit-button'), {button: 1}) //click left mouse button on submit to trigger the rror
+
+    })
+    
+    //assert
+    const returnedData = await findByTestId("returned-data")
+    expect(returnedData).toBeVisible()
+})
+
 //BAD TEST, NEED TO FIX. SHOULD FIX MAX LENGTH
-// test ("can take a reasonable first name", () => {
+// test ("can take a reasonable first name", async () => {
 //     //arrange
     
 //     const {getByPlaceholderText, queryByTestId, getByTestId, queryByText, findByTestId} = render(<ContactForm/>)
@@ -68,13 +96,22 @@ test ("fields can take input", () => {
 //     const firstNameInput = getByTestId("first-name")
 
 //     //act - type in a name that is 10 characters & click submit
-//     fireEvent.change(firstNameInput, {target: {value: "AAAAAAAAAA"}})
+//     act(() => {
+//         fireEvent.change(firstNameInput, {target: {value: "AAAAAAAAAA"}})
     
-//     fireEvent.click(getByTestId('submit-button'), {button: 1}) //click left mouse button on submit to trigger the rror
+//         fireEvent.click(getByTestId('submit-button'), {button: 1}) //click left mouse button on submit to trigger the rror
+
+//     })
+    
     
 //     //assert
+
+
 //     expect(queryByTestId("first-name-error")).toBeNull();
 
-
+//     const firstNameError = await waitForElement(() => {
+//         queryByTestId("first-name-error")
+//     }
+//     )
 // })
 
