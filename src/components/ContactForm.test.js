@@ -87,6 +87,26 @@ test ("data returned works", async () => {
     expect(returnedData).toBeVisible()
 })
 
+// test("under max length does not throw an error", async () => {
+//     //arrange
+//     const {getByTestId, findByTestId} = render(<ContactForm/>)
+//     const firstNameInput = getByTestId("first-name")
+
+//     //act
+//     act(() => {
+
+//         fireEvent.change(firstNameInput, {target: {value: "abc"}})
+
+//         fireEvent.click(getByTestId('submit-button'), {button: 1}) //click left mouse button on submit to trigger the rror
+    
+//         })
+
+//         const returnedData = await queryByTestId("returned-data")
+//         expect(returnedData).toBeNull()
+
+
+// })
+
 //BAD TEST, NEED TO FIX. SHOULD FIX MAX LENGTH
 // test ("can take a reasonable first name", async () => {
 //     //arrange
